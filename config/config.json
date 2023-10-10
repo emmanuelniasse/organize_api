@@ -1,5 +1,4 @@
 {
     "PORT": 3000,
-    "realdbURL": "mongodb+srv://admin:admin@cluster0.4ajp8lb.mongodb.net/organize",
-    "dbURL": "mongodb://localhost:27017/organize"
+    "dbURL": "mongodb+srv://admin:admin@cluster0.4ajp8lb.mongodb.net/organize"
 }
