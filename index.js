@@ -12,9 +12,7 @@ const dbConnect = require('./router/dbConnect/dbConnect.js');
 dbConnect.connect();
 
 // ROUTERS
-const categoriesRouter = require('./router/categoriesRouter');
-const subcategoriesRouter = require('./router/subcategoriesRouter');
-const itemsRouter = require('./router/itemsRouter');
+const expensesRouter = require('./router/expensesRouter');
 
 app.use(cors());
 app.use(express.json());
@@ -23,9 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Uniquement "/" car tout est géré dans les routers
-app.use('/', categoriesRouter);
-app.use('/', subcategoriesRouter);
-app.use('/', itemsRouter);
+app.use('/', expensesRouter);
 
 app.listen(config.PORT, () => {
     console.log('Server listening on port ' + config.PORT);

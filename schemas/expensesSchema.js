@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const categoriesSchema = new Schema(
+const expensesSchema = new Schema(
     {
         name: String,
+        sum: Number,
         slug: String,
     },
     { versionKey: false }
 );
 
-const Categories = mongoose.model('Categories', categoriesSchema);
+const Expenses = mongoose.model('Expenses', expensesSchema);
 
-module.exports = Categories;
+module.exports = Expenses;

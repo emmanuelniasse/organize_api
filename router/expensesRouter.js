@@ -1,29 +1,29 @@
 const express = require('express');
-const categoriesRouter = express.Router();
+const expensesRouter = express.Router();
 const { ObjectId } = require('mongodb');
-const Categories = require('../schemas/categoriesSchema');
+const Expenses = require('../schemas/expensesSchema');
 const { success, error } = require('../functions/functions');
 
-categoriesRouter
+expensesRouter
     // READ ALL
-    .get('/categories', async (req, res) => {
+    .get('/expenses', async (req, res) => {
         try {
-            const categories = await Categories.find();
-            res.status(200).json(success(categories));
-            console.log(categories);
+            const expenses = await Expenses.find();
+            res.status(200).json(success(expenses));
+            console.log(expenses);
         } catch (err) {
             res.status(500).json(error(err.message));
         }
     })
 
     // READ ONE
-    .get('/categories/:id', async (req, res) => {
+    .get('/expenses/:id', async (req, res) => {
         try {
-            const singleClass = await Categories.findById(
+            const singleClass = await Expenses.findById(
                 req.params.id
             );
             if (!singleClass) {
-                throw new Error('Catégorie inconnue');
+                throw new Error('Dépense inconnue');
             }
 
             res.status(200).json(success(singleClass));
@@ -33,19 +33,20 @@ categoriesRouter
     })
 
     // INSERT ONE
-    .post('/categories', async (req, res) => {
+    .post('/expenses', async (req, res) => {
         try {
-            const { name, slug } = req.body;
-            // Vérifie si la categorie est déjà crée
-            const thisClass = await Categories.findOne({ name });
+            const { name, sum, slug } = req.body;
+            // Vérifie si la dépense est déjà crée
+            const thisClass = await Expenses.findOne({ name });
 
             if (thisClass && thisClass._id != req.params.id) {
-                throw new Error('Categorie déjà crée');
+                throw new Error('dépense déjà crée');
             }
 
             // Créer un nouvel étudiant
-            const classToAdd = new Categories({
+            const classToAdd = new Expenses({
                 name,
+                sum,
                 slug,
             });
 
@@ -57,26 +58,27 @@ categoriesRouter
     })
 
     // UPDATE ONE
-    .put('/categories/:id', async (req, res) => {
+    .put('/expenses/:id', async (req, res) => {
         try {
-            const { name, slug } = req.body;
+            const { name, sum, slug } = req.body;
 
             let classToUpdate = {
                 name,
+                sum,
                 slug,
             };
 
-            // Vérifie si la categorie est déjà insérée
-            const classNameExist = await Categories.findOne({ name });
+            // Vérifie si la dépense est déjà insérée
+            const classNameExist = await Expenses.findOne({ name });
             if (
                 classNameExist &&
                 classNameExist._id != req.params.id
             ) {
-                throw new Error('Categorie déjà insérée');
+                throw new Error('dépense déjà insérée');
             }
 
             // Insère les nouvelles valeurs
-            const updatedClass = await Categories.findOneAndUpdate(
+            const updatedClass = await Expenses.findOneAndUpdate(
                 { _id: new ObjectId(req.params.id) },
                 {
                     $set: classToUpdate,
@@ -85,7 +87,7 @@ categoriesRouter
 
             if (!updatedClass) {
                 throw new Error(
-                    "La categorie avec l'id : '" +
+                    "La dépense avec l'id : '" +
                         req.params.id +
                         "' est introuvable."
                 );
@@ -98,20 +100,20 @@ categoriesRouter
     })
 
     // DELETE ONE
-    .delete('/categories/:id', async (req, res) => {
+    .delete('/expenses/:id', async (req, res) => {
         try {
-            const deletedCount = await Categories.deleteOne({
+            const deletedCount = await Expenses.deleteOne({
                 _id: new ObjectId(req.params.id),
             });
 
             if (deletedCount === 0) {
-                throw new Error('Categorie introuvable');
+                throw new Error('Dépense introuvable');
             }
 
-            res.status(200).json(success('Catégorie supprimé'));
+            res.status(200).json(success('Dépense supprimée'));
         } catch (err) {
             res.status(500).json(error(err.message));
         }
     });
 
-module.exports = categoriesRouter;
+module.exports = expensesRouter;
