@@ -35,7 +35,8 @@ expensesRouter
     // INSERT ONE
     .post('/expenses', async (req, res) => {
         try {
-            const { name, sum, slug } = req.body;
+            const { name, sum, description, category, slug } =
+                req.body;
             // Vérifie si la dépense est déjà crée
             const thisClass = await Expenses.findOne({ name });
 
@@ -47,6 +48,8 @@ expensesRouter
             const classToAdd = new Expenses({
                 name,
                 sum,
+                description,
+                category,
                 slug,
             });
 
@@ -60,11 +63,14 @@ expensesRouter
     // UPDATE ONE
     .put('/expenses/:id', async (req, res) => {
         try {
-            const { name, sum, slug } = req.body;
+            const { name, sum, description, category, slug } =
+                req.body;
 
             let classToUpdate = {
                 name,
                 sum,
+                description,
+                category,
                 slug,
             };
 
