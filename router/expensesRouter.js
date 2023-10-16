@@ -8,7 +8,10 @@ expensesRouter
     // READ ALL
     .get('/expenses', async (req, res) => {
         try {
-            const expenses = await Expenses.find();
+            const expenses = await Expenses.find().populate({
+                path: 'category',
+                select: 'name slug',
+            });
             res.status(200).json(success(expenses));
             console.log(expenses);
         } catch (err) {
@@ -38,14 +41,14 @@ expensesRouter
             const { name, sum, description, category, slug } =
                 req.body;
             // Vérifie si la dépense est déjà crée
-            const thisClass = await Expenses.findOne({ name });
+            const thisExpense = await Expenses.findOne({ name });
 
-            if (thisClass && thisClass._id != req.params.id) {
+            if (thisExpense && thisExpense._id != req.params.id) {
                 throw new Error('dépense déjà crée');
             }
 
             // Créer un nouvel étudiant
-            const classToAdd = new Expenses({
+            const expenseToAdd = new Expenses({
                 name,
                 sum,
                 description,
@@ -53,8 +56,8 @@ expensesRouter
                 slug,
             });
 
-            const savedClass = await classToAdd.save();
-            res.status(200).json(success(savedClass));
+            const savedExpense = await expenseToAdd.save();
+            res.status(200).json(success(savedExpense));
         } catch (err) {
             res.status(500).json(error(err.message));
         }
@@ -66,7 +69,7 @@ expensesRouter
             const { name, sum, description, category, slug } =
                 req.body;
 
-            let classToUpdate = {
+            let expenseToUpdate = {
                 name,
                 sum,
                 description,
@@ -75,23 +78,23 @@ expensesRouter
             };
 
             // Vérifie si la dépense est déjà insérée
-            const classNameExist = await Expenses.findOne({ name });
+            const expenseNameExist = await Expenses.findOne({ name });
             if (
-                classNameExist &&
-                classNameExist._id != req.params.id
+                expenseNameExist &&
+                expenseNameExist._id != req.params.id
             ) {
                 throw new Error('dépense déjà insérée');
             }
 
             // Insère les nouvelles valeurs
-            const updatedClass = await Expenses.findOneAndUpdate(
+            const updatedExpense = await Expenses.findOneAndUpdate(
                 { _id: new ObjectId(req.params.id) },
                 {
-                    $set: classToUpdate,
+                    $set: expenseToUpdate,
                 }
             );
 
-            if (!updatedClass) {
+            if (!updatedExpense) {
                 throw new Error(
                     "La dépense avec l'id : '" +
                         req.params.id +
@@ -99,7 +102,7 @@ expensesRouter
                 );
             }
 
-            res.status(200).json(success(classToUpdate));
+            res.status(200).json(success(expenseToUpdate));
         } catch (err) {
             res.status(500).json(error(err.message));
         }
