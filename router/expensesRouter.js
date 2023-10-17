@@ -40,11 +40,11 @@ expensesRouter
         try {
             const { name, sum, description, category, slug } =
                 req.body;
-            // Vérifie si la dépense est déjà crée
+            // Vérifie si la dépense est déjà créée
             const thisExpense = await Expenses.findOne({ name });
 
             if (thisExpense && thisExpense._id != req.params.id) {
-                throw new Error('dépense déjà crée');
+                throw new Error('Dépense déjà créée');
             }
 
             // Créer un nouvel étudiant

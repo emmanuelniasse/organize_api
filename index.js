@@ -12,6 +12,7 @@ const dbConnect = require('./router/dbConnect/dbConnect.js');
 dbConnect.connect();
 
 // ROUTERS
+const usersRouter = require('./router/usersRouter');
 const expensesRouter = require('./router/expensesRouter');
 const categoriesRouter = require('./router/categoriesRouter');
 
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Uniquement "/" car tout est géré dans les routers
+app.use('/', usersRouter);
 app.use('/', expensesRouter);
 app.use('/', categoriesRouter);
 
