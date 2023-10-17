@@ -36,7 +36,7 @@ categoriesRouter
     .post('/categories', async (req, res) => {
         try {
             const { name } = req.body;
-            // Vérifie si la dépense est déjà crée
+            // Vérifie si la dépense est déjà créee
             const thisCategory = await Categories.findOne({ name });
 
             if (thisCategory && thisCategory._id != req.params.id) {
