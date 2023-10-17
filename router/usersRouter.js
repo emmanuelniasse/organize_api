@@ -110,31 +110,31 @@ usersRouter
         } catch (err) {
             res.status(500).json(error(err.message));
         }
-    })
-
-    // SIGNUP
-    .post('/signup', async (req, res) => {
-        const { pseudo, password } = req.body;
-        const passwordHashed = await bcrypt.hash(password, salt);
-        try {
-            const response = await Users.create({
-                pseudo,
-                passwordHashed,
-            });
-            console.log(response);
-
-            // PIN : pas compris pourquoi je suis redirigé ? (en back en + ..)
-            // return res.redirect('/');
-        } catch (error) {
-            console.log(JSON.stringify(error));
-            if (error.code === 11000) {
-                return res.send({
-                    status: 'error',
-                    error: 'Pseudo déjà existant',
-                });
-            }
-            throw error;
-        }
     });
+
+// SIGNUP
+// .post('/signup', async (req, res) => {
+//     const { pseudo, password } = req.body;
+//     const passwordHashed = await bcrypt.hash(password, salt);
+//     try {
+//         const response = await Users.create({
+//             pseudo,
+//             passwordHashed,
+//         });
+//         console.log(response);
+
+//         // PIN : pas compris pourquoi je suis redirigé ? (en back en + ..)
+//         // return res.redirect('/');
+//     } catch (error) {
+//         console.log(JSON.stringify(error));
+//         if (error.code === 11000) {
+//             return res.send({
+//                 status: 'error',
+//                 error: 'Pseudo déjà existant',
+//             });
+//         }
+//         throw error;
+//     }
+// });
 
 module.exports = usersRouter;
