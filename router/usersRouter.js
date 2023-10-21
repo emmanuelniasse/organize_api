@@ -1,8 +1,15 @@
-const express = require('express');
-const usersRouter = express.Router();
-const { ObjectId } = require('mongodb');
-const Users = require('../schemas/usersSchema');
-const { success, error } = require('../functions/functions');
+import { Router } from 'express';
+import { success, error } from '../functions/functions.js';
+import { ObjectId } from 'mongodb';
+import * as bcrypt from 'bcrypt';
+import * as Users from '../schemas/usersSchema.js';
+const usersRouter = Router();
+
+// BCRYPT
+// const bcrypt = require('bcrypt');
+// const saltRounds = 10;
+// const salt = await bcrypt.genSalt(saltRounds);
+
 usersRouter
     // READ ALL
     .get('/users', async (req, res) => {
@@ -29,29 +36,53 @@ usersRouter
         }
     })
 
-    // INSERT ONE
-    .post('/users', async (req, res) => {
+    // SIGNUP
+    .post('/signup', async (req, res) => {
         try {
             const { pseudo, password } = req.body;
+            const saltRounds = 10;
 
             // Vérifie si l'utilisateur est déjà créé
             const userExist = await Users.findOne({ pseudo });
-
             if (userExist && userExist._id != req.params.id) {
                 throw new Error('Utilisateur déjà créé');
             }
 
-            // Créer un nouvel utilisateur
-            // Pour tester la req avec postman, envoyer les datas via body > raw > JSON (à cause du `required: true` dans le schema)
-            const newUser = new Users({
-                pseudo,
+            bcrypt.hash(
                 password,
-            });
-
-            const userCreated = await newUser.save();
-            res.status(200).json(success(userCreated));
+                saltRounds,
+                async function (err, password) {
+                    // Créer un nouvel utilisateur
+                    // Pour tester la req avec postman, envoyer les datas via body > raw > JSON (à cause du `required: true` dans le schema)
+                    const newUser = new Users({
+                        pseudo,
+                        password,
+                    });
+                    const userCreated = await newUser.save();
+                    res.status(200).json(success(userCreated));
+                }
+            );
         } catch (err) {
             res.status(500).json(error(err.message));
+        }
+    })
+
+    // LOGIN
+    .post('/login', async (req, res) => {
+        try {
+            const { pseudo, password } = req.body;
+
+            const user = await Users.findOne({ pseudo });
+
+            bcrypt.compare(
+                password,
+                user.password,
+                function (err, result) {
+                    result && res.status(200).json(success(result));
+                }
+            );
+        } catch (err) {
+            console.log(err);
         }
     })
 
@@ -112,29 +143,4 @@ usersRouter
         }
     });
 
-// SIGNUP
-// .post('/signup', async (req, res) => {
-//     const { pseudo, password } = req.body;
-//     const passwordHashed = await bcrypt.hash(password, salt);
-//     try {
-//         const response = await Users.create({
-//             pseudo,
-//             passwordHashed,
-//         });
-//         console.log(response);
-
-//         // PIN : pas compris pourquoi je suis redirigé ? (en back en + ..)
-//         // return res.redirect('/');
-//     } catch (error) {
-//         console.log(JSON.stringify(error));
-//         if (error.code === 11000) {
-//             return res.send({
-//                 status: 'error',
-//                 error: 'Pseudo déjà existant',
-//             });
-//         }
-//         throw error;
-//     }
-// });
-
-module.exports = usersRouter;
+export { usersRouter };

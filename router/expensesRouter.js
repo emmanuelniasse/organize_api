@@ -1,8 +1,8 @@
-const express = require('express');
-const expensesRouter = express.Router();
-const { ObjectId } = require('mongodb');
-const Expenses = require('../schemas/expensesSchema');
-const { success, error } = require('../functions/functions');
+import { Router } from 'express';
+import { ObjectId } from 'mongodb';
+import { success, error } from '../functions/functions.js';
+import * as Expenses from '../schemas/expensesSchema.js';
+const expensesRouter = Router();
 
 expensesRouter
     // READ ALL
@@ -125,4 +125,4 @@ expensesRouter
         }
     });
 
-module.exports = expensesRouter;
+export { expensesRouter };

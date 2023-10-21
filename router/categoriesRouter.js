@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
 const categoriesRouter = express.Router();
-const { ObjectId } = require('mongodb');
-const Categories = require('../schemas/categoriesSchema');
-const { success, error } = require('../functions/functions');
+import { ObjectId } from 'mongodb';
+import * as Categories from '../schemas/categoriesSchema.js';
+import { success, error } from '../functions/functions.js';
 
 categoriesRouter
     // READ ALL
@@ -114,4 +114,4 @@ categoriesRouter
         }
     });
 
-module.exports = categoriesRouter;
+export { categoriesRouter };
