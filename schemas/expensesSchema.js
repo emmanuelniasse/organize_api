@@ -14,4 +14,4 @@ const expensesSchema = new Schema(
 
 const Expenses = mongoose.model('Expenses', expensesSchema);
 
-export { Expenses };
+export default Expenses;

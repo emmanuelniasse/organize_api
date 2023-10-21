@@ -2,13 +2,9 @@ import { Router } from 'express';
 import { success, error } from '../functions/functions.js';
 import { ObjectId } from 'mongodb';
 import * as bcrypt from 'bcrypt';
-import * as Users from '../schemas/usersSchema.js';
-const usersRouter = Router();
+import Users from '../schemas/usersSchema.js';
 
-// BCRYPT
-// const bcrypt = require('bcrypt');
-// const saltRounds = 10;
-// const salt = await bcrypt.genSalt(saltRounds);
+const usersRouter = Router();
 
 usersRouter
     // READ ALL

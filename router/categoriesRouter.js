@@ -1,8 +1,9 @@
 import express from 'express';
-const categoriesRouter = express.Router();
 import { ObjectId } from 'mongodb';
-import * as Categories from '../schemas/categoriesSchema.js';
+import Categories from '../schemas/categoriesSchema.js';
 import { success, error } from '../functions/functions.js';
+
+const categoriesRouter = express.Router();
 
 categoriesRouter
     // READ ALL
