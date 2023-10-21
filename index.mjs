@@ -1,7 +1,7 @@
 // LIBRAIRIES
 import express from 'express';
 import 'dotenv/config';
-import * as cors from 'cors';
+import cors from 'cors';
 const app = express();
 const router = express.Router();
 
@@ -14,7 +14,13 @@ import { usersRouter } from './router/usersRouter.js';
 import { expensesRouter } from './router/expensesRouter.js';
 import { categoriesRouter } from './router/categoriesRouter.js';
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://organize-api.vercel.app/', // Remplacez par l'URL de votre client
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(router); // Uniquement "/" car tout est géré dans les routers
