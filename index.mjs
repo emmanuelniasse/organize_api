@@ -14,7 +14,11 @@ import { usersRouter } from './router/usersRouter.js';
 import { expensesRouter } from './router/expensesRouter.js';
 import { categoriesRouter } from './router/categoriesRouter.js';
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://organize-kappa.vercel.app/',
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(router); // Uniquement "/" car tout est géré dans les routers
