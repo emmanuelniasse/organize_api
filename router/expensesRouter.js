@@ -9,7 +9,6 @@ expensesRouter
     // READ ALL
     .get('/expenses', async (req, res) => {
         try {
-            res.header('Access-Control-Allow-Origin', '*');
             const expenses = await Expenses.find().populate({
                 path: 'category',
                 select: 'name slug',
