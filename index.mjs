@@ -15,9 +15,7 @@ import { expensesRouter } from './router/expensesRouter.js';
 import { categoriesRouter } from './router/categoriesRouter.js';
 
 const corsOptions = {
-    origin: 'https://organize-api.vercel.app/', // Remplacez par l'URL de votre client
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
+    origin: 'https://organize-kappa.vercel.app/', // Remplacez par l'URL de votre client //
 };
 
 app.use(cors(corsOptions));
