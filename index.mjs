@@ -35,7 +35,8 @@ import { authVerification } from './router/authVerification.js';
 app.use(cookieParser());
 app.use(
     cors({
-        origin: 'http://localhost:3001', // Le domaine autorisé
+        origin: 'https://organize-kappa.vercel.app', // Le domaine autorisé
+        // origin: 'http://localhost:3001', // Le domaine autorisé
         credentials: true, // Autoriser les informations d'authentification (cookies, en-têtes d'autorisation, etc.)
     })
 );
