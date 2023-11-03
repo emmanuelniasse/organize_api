@@ -14,7 +14,6 @@ expensesRouter
                 select: 'name slug',
             });
             res.status(200).json(success(expenses));
-            console.log(expenses);
         } catch (err) {
             res.status(500).json(error(err.message));
         }
