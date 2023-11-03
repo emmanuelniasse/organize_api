@@ -18,11 +18,31 @@ import { expensesRouter } from './router/expensesRouter.js';
 import { categoriesRouter } from './router/categoriesRouter.js';
 import { authVerification } from './router/authVerification.js';
 
+//PIN : Voir si ça sert pas à rien au final
+app.use((_req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'DELETE, POST, GET, OPTIONS, PUT, PATCH'
+    );
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type, Authorization'
+    );
+    next();
+});
+
 app.use(cookieParser());
+// app.use(
+//     cors({
+//         origin: 'http://localhost:3001', // Le domaine autorisé
+//         credentials: true, // Autoriser les informations d'authentification (cookies, en-têtes d'autorisation, etc.)
+//     })
+// );
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(router);
+app.use(router); // Uniquement "/" car tout est géré dans les routers
 app.use('/', usersRouter);
 app.use('/', authRouter);
 app.use('/', authVerification, expensesRouter);
