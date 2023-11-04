@@ -18,38 +18,17 @@ import { expensesRouter } from './router/expensesRouter.js';
 import { categoriesRouter } from './router/categoriesRouter.js';
 import { authVerification } from './router/authVerification.js';
 
-//PIN : Voir si ça sert pas à rien au final
-// app.use((_req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader(
-//         'Access-Control-Allow-Methods',
-//         'DELETE, POST, GET, OPTIONS, PUT, PATCH'
-//     );
-//     res.setHeader(
-//         'Access-Control-Allow-Headers',
-//         'Content-Type, Authorization'
-//     );
-//     next();
-// });
-
 app.use(cookieParser());
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.header(
-//         'Access-Control-Allow-Headers',
-//         'Origin, X-Requested-With, Content-Type, Accept'
-//     );
-//     next();
-// });
-// app.use(cors());
-app.use(
-    cors({
-        origin: '*',
-        methods: 'GET, POST, PUT, DELETE',
-        allowedHeaders: 'Content-Type, Authorization', // Exemple de spécification des en-têtes autorisés
-        credentials: true, // Si vous utilisez des cookies
-    })
-);
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    next();
+});
+
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(router); // Uniquement "/" car tout est géré dans les routers
