@@ -10,6 +10,7 @@ const authRouter = Router();
 
 authRouter // SIGNUP
     .post('/signup', async (req, res) => {
+        res.header('Access-Control-Allow-Origin', '*');
         try {
             const { pseudo, password } = req.body;
             const saltRounds = 10;
@@ -62,6 +63,8 @@ authRouter // SIGNUP
 
     // LOGIN
     .post('/login', async (req, res) => {
+        res.header('Access-Control-Allow-Origin', '*');
+
         try {
             const { pseudo, password } = req.body;
 
