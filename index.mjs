@@ -21,8 +21,8 @@ import { authVerification } from './router/authVerification.js';
 app.use(cookieParser());
 app.use(
     cors({
-        origin: '*',
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        origin: ['https://organize-kappa.vercel.app'],
+        methods: ['POST', 'DELETE', 'POST', 'PUT', 'PATCH'],
     })
 );
 app.use(express.json());
