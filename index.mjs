@@ -33,22 +33,21 @@ import { authVerification } from './router/authVerification.js';
 // });
 
 app.use(cookieParser());
-// app.use(
-//     cors({
-//         origin: 'https://organize-kappa.vercel.app', // Le domaine autorisé
-//         // origin: 'http://localhost:3001', // Le domaine autorisé
-//         credentials: true, // Autoriser les informations d'authentification (cookies, en-têtes d'autorisation, etc.)
-//     })
-// );
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept'
-    );
-    next();
-});
-app.use(cors());
+// app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.header(
+//         'Access-Control-Allow-Headers',
+//         'Origin, X-Requested-With, Content-Type, Accept'
+//     );
+//     next();
+// });
+// app.use(cors());
+app.use(
+    cors({
+        origin: '*',
+        credentials: true, // Si vous utilisez des cookies dans vos requêtes
+    })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(router); // Uniquement "/" car tout est géré dans les routers
