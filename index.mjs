@@ -45,7 +45,9 @@ app.use(cookieParser());
 app.use(
     cors({
         origin: '*',
-        credentials: true, // Si vous utilisez des cookies dans vos requêtes
+        methods: 'GET, POST, PUT, DELETE',
+        allowedHeaders: 'Content-Type, Authorization', // Exemple de spécification des en-têtes autorisés
+        credentials: true, // Si vous utilisez des cookies
     })
 );
 app.use(express.json());
