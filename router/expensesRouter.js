@@ -8,7 +8,6 @@ const expensesRouter = Router();
 expensesRouter
     // READ ALL
     .get('/expenses', async (req, res) => {
-        // res.header('Access-Control-Allow-Origin', '*');
         try {
             const expenses = await Expenses.find().populate({
                 path: 'category',
