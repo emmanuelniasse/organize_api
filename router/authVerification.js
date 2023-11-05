@@ -22,7 +22,6 @@ async function authVerification(req, res, next) {
         next(); // Accède aux router privé
     } catch (err) {
         // console.log(JSON.stringify(err));
-
         switch (err.name) {
             case 'UserNotFound':
                 return res.status(401).send('Utilisateur non trouvé');
