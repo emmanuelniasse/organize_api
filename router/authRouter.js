@@ -42,9 +42,9 @@ authRouter // SIGNUP
                     saltRounds,
                     async function (err, password) {
                         if (err) {
-                            res.status(400).json({
-                                message: 'Utilisateur déjà créé',
-                            });
+                            return res
+                                .status(401)
+                                .send('Utilisateur déjà créé');
                         }
                         const newUser = new Users({
                             pseudo,
@@ -57,6 +57,7 @@ authRouter // SIGNUP
             }
         } catch (err) {
             res.status(500).json(error(err.message));
+            // PIN : Throw new error ?
         }
     })
 
@@ -82,7 +83,9 @@ authRouter // SIGNUP
 
             if (userPayloadValid) {
                 const user = await Users.findOne({ pseudo });
-
+                if (!user) {
+                    throw { name: 'UserNotFound' };
+                }
                 bcrypt.compare(
                     password,
                     user.password,
@@ -90,7 +93,7 @@ authRouter // SIGNUP
                         if (err || !result) {
                             return res
                                 .status(401)
-                                .json(error(result));
+                                .send('Mot de passe incorrect');
                         }
                         const token = jwt.sign(
                             { userId: user._id, pseudo: user.pseudo },
@@ -114,7 +117,19 @@ authRouter // SIGNUP
                 );
             }
         } catch (err) {
-            console.log(err);
+            switch (err.name) {
+                case 'UserNotFound':
+                    return res
+                        .status(401)
+                        .send('Utilisateur inconnu');
+
+                default:
+                    return res
+                        .status(401)
+                        .send(
+                            "Une erreur est survenue lors de l'authentifitcation"
+                        );
+            }
         }
     })
 
