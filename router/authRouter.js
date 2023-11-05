@@ -62,8 +62,6 @@ authRouter // SIGNUP
 
     // LOGIN
     .post('/login', async (req, res) => {
-        // res.header('Access-Control-Allow-Origin', '*');
-
         try {
             const { pseudo, password } = req.body;
 
