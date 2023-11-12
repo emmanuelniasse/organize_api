@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const expensesSchema = new Schema(
     {
+        user: { type: Schema.Types.ObjectId, ref: 'Users' },
         name: String,
         category: { type: Schema.Types.ObjectId, ref: 'Categories' },
         sum: Number,

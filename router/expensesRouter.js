@@ -9,11 +9,16 @@ expensesRouter
     // READ ALL
     .get('/expenses', async (req, res) => {
         try {
-            const expenses = await Expenses.find().populate({
+            const userId = req.user.id;
+            const expenses = await Expenses.find({
+                user: userId,
+            }).populate({
                 path: 'category',
                 select: 'name slug',
             });
             res.status(200).json(success(expenses));
+
+            // console.log(req.user.id);
         } catch (err) {
             res.status(500).json(error(err.message));
         }
@@ -38,6 +43,7 @@ expensesRouter
     // INSERT ONE
     .post('/expenses', async (req, res) => {
         try {
+            const userId = req.user.id;
             const { name, sum, description, category, slug } =
                 req.body;
             // Vérifie si la dépense est déjà créée
@@ -49,6 +55,7 @@ expensesRouter
 
             // Créer un nouvel étudiant
             const expenseToAdd = new Expenses({
+                user: userId,
                 name,
                 sum,
                 description,
@@ -66,10 +73,12 @@ expensesRouter
     // UPDATE ONE
     .put('/expenses/:id', async (req, res) => {
         try {
+            const userId = req.user.id;
             const { name, sum, description, category, slug } =
                 req.body;
 
             let expenseToUpdate = {
+                user: userId,
                 name,
                 sum,
                 description,

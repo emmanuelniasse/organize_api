@@ -16,6 +16,7 @@ async function authVerification(req, res, next) {
         }
         req.user = {
             status: true,
+            id: user._id,
             pseudo: user.pseudo,
         };
 
