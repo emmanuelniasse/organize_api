@@ -20,10 +20,10 @@ import { authVerification } from './router/authVerification.js';
 
 app.use(cookieParser());
 const corsOptions = {
-    origin: 'https://organize-kappa.vercel.app', // Remplacez par votre origine
-    methods: 'GET,POST,PUT,DELETE,OPTIONS', // Méthodes autorisées
+    origin: `${(process.env.APP_URL, process.env.APP_URL_LOCAL)}`,
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
     allowedHeaders:
-        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version', // En-têtes autorisés
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, ngrok-skip-browser-warning, authorization',
     credentials: true, // Permettre les cookies et les en-têtes d'authentification
 };
 
