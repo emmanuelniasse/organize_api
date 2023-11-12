@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 app.use(
     cors({
-        origin: 'https://organize-kappa.vercel.app',
+        origin: [process.env.APP_URL, process.env.APP_URL_PROD],
         methods: 'GET,POST,PUT,DELETE,OPTIONS',
         allowedHeaders:
             'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, ngrok-skip-browser-warning, Authorization',
@@ -40,6 +40,5 @@ app.use('/', categoriesRouter);
 app.listen(process.env.PORT, () => {
     console.log('Server listening on port ' + process.env.PORT);
 });
-
 // Export Express API
 export { app };
