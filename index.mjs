@@ -19,11 +19,19 @@ import { categoriesRouter } from './router/categoriesRouter.js';
 import { authVerification } from './router/authVerification.js';
 
 app.use(cookieParser());
+
+const whitelist = [process.env.APP_URL, process.env.APP_URL_PROD];
 const corsOptions = {
-    origin: [process.env.APP_URL, process.env.APP_URL_PROD],
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: 'GET,POST,PUT,DELETE,OPTIONS',
     allowedHeaders:
-        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, ngrok-skip-browser-warning, authorization',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, ngrok-skip-browser-warning, Authorization',
     credentials: true, // Permettre les cookies et les en-têtes d'authentification
 };
 
