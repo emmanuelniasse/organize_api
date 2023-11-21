@@ -68,7 +68,7 @@ authRouter // SIGNUP
             // Ajouter l'en-tête Access-Control-Allow-Origin
             res.header(
                 'Access-Control-Allow-Origin',
-                'https://example.com'
+                'https://organize-kappa.vercel.app'
             );
             // Autres en-têtes CORS si nécessaire
             res.header(
