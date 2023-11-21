@@ -3,7 +3,16 @@ import { ObjectId } from 'mongodb';
 import { success, error } from '../functions/functions.js';
 import Users from '../schemas/usersSchema.js';
 
-const usersRouter = Router();
+import cors from 'cors';
+
+const usersRouter = Router(
+    cors({
+        allowOrigin: 'https://organize-kappa.vercel.app',
+        methods: 'GET,POST,PUT,DELETE,OPTIONS',
+        allowedHeaders:
+            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, ngrok-skip-browser-warning, Authorization',
+    })
+);
 
 usersRouter
     // READ ALL
