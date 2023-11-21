@@ -20,6 +20,22 @@ async function authVerification(req, res, next) {
             pseudo: user.pseudo,
         };
 
+        // Ajouter l'en-tête Access-Control-Allow-Origin
+        res.header(
+            'Access-Control-Allow-Origin',
+            'https://example.com'
+        );
+        // Autres en-têtes CORS si nécessaire
+        res.header(
+            'Access-Control-Allow-Methods',
+            'GET, POST, PUT, DELETE, OPTIONS'
+        );
+        res.header(
+            'Access-Control-Allow-Headers',
+            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, ngrok-skip-browser-warning, Authorization'
+        );
+        res.header('Access-Control-Allow-Credentials', 'true');
+
         next(); // Accède aux router privé
     } catch (err) {
         // console.log(JSON.stringify(err));
