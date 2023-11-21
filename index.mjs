@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 app.use(
     cors({
-        origin: [process.env.APP_URL, process.env.APP_URL_PROD],
+        origin: process.env.APP_URL_PROD,
         // origin: '*',
         methods: 'GET,POST,PUT,DELETE,OPTIONS',
         allowedHeaders:
