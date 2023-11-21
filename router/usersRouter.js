@@ -7,7 +7,7 @@ import cors from 'cors';
 
 const usersRouter = Router(
     cors({
-        origin: 'https://organize-kappa.vercel.app',
+        Access-Control-Allow-Origin: 'https://organize-kappa.vercel.app',
         methods: 'GET,POST,PUT,DELETE,OPTIONS',
         allowedHeaders:
             'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
