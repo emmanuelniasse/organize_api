@@ -3,7 +3,16 @@ import { ObjectId } from 'mongodb';
 import { success, error } from '../functions/functions.js';
 import Expenses from '../schemas/expensesSchema.js';
 
-const expensesRouter = Router();
+import cors from 'cors';
+
+const expensesRouter = Router(
+    cors({
+        allowOrigin: 'https://organize-kappa.vercel.app',
+        methods: 'GET,POST,PUT,DELETE,OPTIONS',
+        allowedHeaders:
+            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
+    })
+);
 
 expensesRouter
     // READ ALL

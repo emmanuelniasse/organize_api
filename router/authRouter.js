@@ -6,7 +6,16 @@ import jwt from 'jsonwebtoken';
 import { success, error } from '../functions/functions.js';
 import Users from '../schemas/usersSchema.js';
 
-const authRouter = Router();
+import cors from 'cors';
+
+const authRouter = Router(
+    cors({
+        allowOrigin: 'https://organize-kappa.vercel.app',
+        methods: 'GET,POST,PUT,DELETE,OPTIONS',
+        allowedHeaders:
+            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
+    })
+);
 
 authRouter // SIGNUP
     .post('/signup', async (req, res) => {

@@ -25,7 +25,7 @@ app.use(
         allowOrigin: 'https://organize-kappa.vercel.app',
         methods: 'GET,POST,PUT,DELETE,OPTIONS',
         allowedHeaders:
-            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, ngrok-skip-browser-warning, Authorization',
+            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
         credentials: true, // Permettre les cookies et les en-têtes d'authentification
     })
 );
