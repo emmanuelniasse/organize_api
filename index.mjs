@@ -23,7 +23,8 @@ app.use(cookieParser());
 app.use(
     cors({
         // origin: process.env.APP_URL_PROD,
-        origin: '*',
+        // origin: '*',
+        origin: 'https://organize-kappa.vercel.app/connexion',
         methods: 'GET,POST,PUT,DELETE,OPTIONS',
         allowedHeaders:
             'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, ngrok-skip-browser-warning, Authorization',
