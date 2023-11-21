@@ -10,7 +10,7 @@ import cors from 'cors';
 
 const authRouter = Router(
     cors({
-        origin: 'https://organize-kappa.vercel.app',
+        origin: '*',
         methods: 'GET,POST,PUT,DELETE,OPTIONS',
         allowedHeaders:
             'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
@@ -66,10 +66,7 @@ authRouter // SIGNUP
             }
 
             // Ajouter l'en-tête Access-Control-Allow-Origin
-            res.header(
-                'Access-Control-Allow-Origin',
-                'https://organize-kappa.vercel.app'
-            );
+            res.header('Access-Control-Allow-Origin', '*');
             // Autres en-têtes CORS si nécessaire
             res.header(
                 'Access-Control-Allow-Methods',

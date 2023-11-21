@@ -21,10 +21,7 @@ async function authVerification(req, res, next) {
         };
 
         // Ajouter l'en-tête Access-Control-Allow-Origin
-        res.header(
-            'Access-Control-Allow-Origin',
-            'https://organize-kappa.vercel.app'
-        );
+        res.header('Access-Control-Allow-Origin', '*');
         // Autres en-têtes CORS si nécessaire
         res.header(
             'Access-Control-Allow-Methods',
