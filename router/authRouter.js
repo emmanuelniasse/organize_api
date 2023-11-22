@@ -76,7 +76,7 @@ authRouter // SIGNUP
                 'Access-Control-Allow-Headers',
                 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization'
             );
-            res.header('Access-Control-Allow-Credentials', 'true');
+            // res.header('Access-Control-Allow-Credentials', 'true');
         } catch (err) {
             res.status(500).json(error(err.message));
             // PIN : Throw new error ?
