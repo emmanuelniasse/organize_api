@@ -6,7 +6,6 @@ import jwt from 'jsonwebtoken';
 import { success, error } from '../functions/functions.js';
 import Users from '../schemas/usersSchema.js';
 
-
 const authRouter = Router();
 
 authRouter // SIGNUP

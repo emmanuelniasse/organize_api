@@ -22,13 +22,15 @@ app.use(cookieParser());
 
 var whitelist = ['https://organize-kappa.vercel.app', 'http://localhost:3000']
 var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   
+    origin: '*',
+    credentials: true,
 }
 
 app.use(cors(corsOptions));
