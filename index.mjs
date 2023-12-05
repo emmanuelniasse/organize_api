@@ -23,11 +23,8 @@ app.use(cookieParser());
 app.use(
     cors({
         origin: 'https://organize-kappa.vercel.app',
-        methods: 'GET,POST,PUT,DELETE,OPTIONS',
-        allowedHeaders:
-            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
-        // credentials: true, // Permettre les cookies et les en-têtes d'authentification
-    })
+        credentials: true, // pour envoyer les cookies au client
+        })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
