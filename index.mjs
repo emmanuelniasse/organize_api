@@ -31,6 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(router); // Uniquement "/" car tout est géré dans les routers
 app.use('/', usersRouter);
 app.use('/', authRouter);
+// app.use('/', authVerification, expensesRouter);
 app.use('/', expensesRouter);
 app.use('/', categoriesRouter);
 

@@ -6,16 +6,8 @@ import jwt from 'jsonwebtoken';
 import { success, error } from '../functions/functions.js';
 import Users from '../schemas/usersSchema.js';
 
-import cors from 'cors';
 
-const authRouter = Router(
-    cors({
-        origin: '*',
-        methods: 'GET,POST,PUT,DELETE,OPTIONS',
-        allowedHeaders:
-            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
-    })
-);
+const authRouter = Router();
 
 authRouter // SIGNUP
     .post('/signup', async (req, res) => {
@@ -64,19 +56,6 @@ authRouter // SIGNUP
                     }
                 );
             }
-
-            // Ajouter l'en-tête Access-Control-Allow-Origin
-            res.header('Access-Control-Allow-Origin', '*');
-            // Autres en-têtes CORS si nécessaire
-            res.header(
-                'Access-Control-Allow-Methods',
-                'GET, POST, PUT, DELETE, OPTIONS'
-            );
-            res.header(
-                'Access-Control-Allow-Headers',
-                'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization'
-            );
-            // res.header('Access-Control-Allow-Credentials', 'true');
         } catch (err) {
             res.status(500).json(error(err.message));
             // PIN : Throw new error ?
