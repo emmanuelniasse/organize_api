@@ -20,24 +20,24 @@ import { authVerification } from './router/authVerification.js';
 
 app.use(cookieParser());
 
-app.use(
-    cors({
-        origin: 'https://organize-kappa.vercel.app',
-        credentials: true, // pour envoyer les cookies au client
-        allowedHeaders: ['Content-Type', 'Authorization'], // pour autoriser le header Content-Type et Authorization dans les requêtes envoyées au serveur (pour les cookies)
-        methods: ['GET', 'POST', 'PUT', 'DELETE'], // pour autoriser les requêtes GET, POST, PUT, DELETE depuis le client
-        })
-);
+// app.use(
+//     cors({
+//         origin: 'https://organize-kappa.vercel.app',
+//         credentials: true, // pour envoyer les cookies au client
+//         allowedHeaders: ['Content-Type', 'Authorization'], // pour autoriser le header Content-Type et Authorization dans les requêtes envoyées au serveur (pour les cookies)
+//         methods: ['GET', 'POST', 'PUT', 'DELETE'], // pour autoriser les requêtes GET, POST, PUT, DELETE depuis le client
+//         })
+// );
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE');
 
     // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type', 'Authorization', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With','content-type', 'Authorization', 'Content-Type');
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
