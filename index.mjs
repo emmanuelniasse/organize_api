@@ -20,12 +20,18 @@ import { authVerification } from './router/authVerification.js';
 
 app.use(cookieParser());
 
-app.use(cors(
-    {
-        origin: process.env.APP_URL_PROD,
-        credentials: true,
-    },
-));
+var whitelist = ['https://organize-kappa.vercel.app', 'http://localhost:3000']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(router); // Uniquement "/" car tout est géré dans les routers
