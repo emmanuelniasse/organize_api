@@ -3,16 +3,7 @@ import { ObjectId } from 'mongodb';
 import { success, error } from '../functions/functions.js';
 import Users from '../schemas/usersSchema.js';
 
-import cors from 'cors';
-
-const usersRouter = Router(
-    cors({
-        origin: '*',
-        methods: 'GET,POST,PUT,DELETE,OPTIONS',
-        allowedHeaders:
-            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
-    })
-);
+const usersRouter = Router();
 
 usersRouter
     // READ ALL

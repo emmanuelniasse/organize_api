@@ -3,16 +3,7 @@ import { ObjectId } from 'mongodb';
 import Categories from '../schemas/categoriesSchema.js';
 import { success, error } from '../functions/functions.js';
 
-import cors from 'cors';
-
-const categoriesRouter = express.Router(
-    cors({
-        origin: '*',
-        methods: 'GET,POST,PUT,DELETE,OPTIONS',
-        allowedHeaders:
-            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
-    })
-);
+const categoriesRouter = express.Router();
 
 categoriesRouter
     // READ ALL
