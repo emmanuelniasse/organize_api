@@ -20,13 +20,18 @@ import { authVerification } from './router/authVerification.js';
 
 app.use(cookieParser());
 
-app.use(cors());
+app.use(cors(
+    {
+        origin: process.env.APP_URL_PROD,
+        credentials: true,
+    },
+));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(router); // Uniquement "/" car tout est géré dans les routers
 app.use('/', usersRouter);
 app.use('/', authRouter);
-app.use('/', authVerification, expensesRouter);
+app.use('/', expensesRouter);
 app.use('/', categoriesRouter);
 
 app.listen(process.env.PORT, () => {
