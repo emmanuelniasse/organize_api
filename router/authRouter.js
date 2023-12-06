@@ -66,35 +66,36 @@ authRouter // SIGNUP
         try {
             const { pseudo, password } = req.body;
 
-            const schema = vine.object({
-                pseudo: vine.string(),
-                password: vine.string().minLength(2).maxLength(32),
-            });
+            // const schema = vine.object({
+            //     pseudo: vine.string(),
+            //     password: vine.string().minLength(2).maxLength(32),
+            // });
 
             const data = {
                 pseudo,
                 password,
             };
 
-            const userPayloadValid = await vine.validate({
-                schema,
-                data,
-            });
+            // const userPayloadValid = await vine.validate({
+            //     schema,
+            //     data,
+            // });
 
             if (data) {
                 const user = await Users.findOne({ pseudo });
                 if (!user) {
                     throw { name: 'UserNotFound' };
                 }
-                // bcrypt.compare(
-                //     password,
-                //     user.password,
-                //     function (err, result) {
-                //         if (err || !result) {
-                //             return res
-                //                 .status(401)
-                //                 .send('Mot de passe incorrect');
-                //         }
+                bcrypt.compare(
+                    password,
+                    user.password,
+                    function (err, result) {
+                        if (err || !result) {
+                            // return res
+                            //     .status(401)
+                            //     .send('Mot de passe incorrect');
+                            throw { name: 'IncorrectPassword' };
+                        }
                         const token = jwt.sign(
                             { userId: user._id, pseudo: user.pseudo },
                             process.env.JWT_SECRET_KEY,
@@ -113,8 +114,8 @@ authRouter // SIGNUP
                             message: 'Cookies sent',
                             token: token,
                         });
-                //     }
-                // );
+                    }
+                );
             }
         } catch (err) {
             switch (err.name) {
@@ -122,7 +123,10 @@ authRouter // SIGNUP
                     return res
                         .status(401)
                         .send('Utilisateur inconnu');
-
+                case 'IncorrectPassword':
+                    return res
+                        .status(401)
+                        .send('Mot de passe incorrect');
                 default:
                     return res
                         .status(401)
