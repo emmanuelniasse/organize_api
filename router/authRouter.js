@@ -66,22 +66,22 @@ authRouter // SIGNUP
         try {
             const { pseudo, password } = req.body;
 
-            // const schema = vine.object({
-            //     pseudo: vine.string(),
-            //     password: vine.string().minLength(2).maxLength(32),
-            // });
+            const schema = vine.object({
+                pseudo: vine.string(),
+                password: vine.string().minLength(2).maxLength(32),
+            });
 
             const data = {
                 pseudo,
                 password,
             };
 
-            // const userPayloadValid = await vine.validate({
-            //     schema,
-            //     data,
-            // });
+            const userPayloadValid = await vine.validate({
+                schema,
+                data,
+            });
 
-            if (data) {
+            if (userPayloadValid) {
                 const user = await Users.findOne({ pseudo });
                 if (!user) {
                     throw { name: 'UserNotFound' };
@@ -91,9 +91,6 @@ authRouter // SIGNUP
                     user.password,
                     function (err, result) {
                         if (err || !result) {
-                            // return res
-                            //     .status(401)
-                            //     .send('Mot de passe incorrect');
                             throw { name: 'IncorrectPassword' };
                         }
                         const token = jwt.sign(
@@ -140,10 +137,14 @@ authRouter // SIGNUP
     // LOGOUT
     .post('/logout', (req, res) => {
         res.clearCookie('token');
-        res.send({
-            success: true,
-            message: 'Déconnexion réussie',
-        });
+        if (!req.cookies.token) {
+            throw new Error('Déconnexion impossible');
+        } else {
+            res.send({
+                success: true,
+                message: 'Déconnexion réussie',
+            });
+        }
     });
 
 export { authRouter };

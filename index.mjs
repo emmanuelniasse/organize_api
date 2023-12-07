@@ -20,7 +20,7 @@ import { authVerification } from './router/authVerification.js';
 
 app.use(cookieParser());
 
-app.use(cors({origin: '*'}));
+app.use(cors({origin: `${process.env.REACT_APP_API_URI}`}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(router); // Uniquement "/" car tout est géré dans les routers
