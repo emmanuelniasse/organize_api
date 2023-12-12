@@ -102,7 +102,7 @@ authRouter // SIGNUP
                             }
                         );
 
-                        return res.cookie('token', token, {
+                        res.cookie('token', token, {
                                 maxAge: 3600000,
                                 httpOnly: true,
                                 credentials: true,
@@ -110,11 +110,11 @@ authRouter // SIGNUP
                             .status(200)
                             .json(success({ token }));
 
-                        // res.send({
-                        //     success: true,
-                        //     message: 'Cookies sent',
-                        //     token: token,
-                        // });
+                        res.send({
+                            success: true,
+                            message: 'Cookies sent',
+                            token: token,
+                        });
                     }
                 );
             }
