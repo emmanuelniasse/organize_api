@@ -102,10 +102,11 @@ authRouter // SIGNUP
                             }
                         );
 
-                        res.cookie('token', token, {
-                            maxAge: 900000,
-                            httpOnly: false,
-                        });
+                        return res.cookie('token', token, {
+                                maxAge
+                            })
+                            .status(200)
+                            .json(success({ token }));
 
                         // res.send({
                         //     success: true,
