@@ -65,6 +65,7 @@ authRouter // SIGNUP
     .post('/login', async (req, res) => {
         try {
             const { pseudo, password } = req.body;
+            console.log(pseudo, password);
 
             const schema = vine.object({
                 pseudo: vine.string(),
