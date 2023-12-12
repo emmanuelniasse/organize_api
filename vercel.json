@@ -11,5 +11,11 @@
             "src": "/(.*)",
             "dest": "/"
         }
-    ]
+    ],
+    "headers": {
+        "/*": [
+          "Access-Control-Allow-Origin: https://organize-kappa.vercel.app",
+          "Access-Control-Allow-Credentials: true"
+        ]
+      }
 }
