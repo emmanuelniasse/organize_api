@@ -102,7 +102,7 @@ authRouter // SIGNUP
                             }
                         );
 
-                        return res.cookie('tokeeeen', 'tst', {
+                        return res.cookie('token', token, {
                                 maxAge: 3600000,
                                 httpOnly: false,
                                 credentials: true,
