@@ -102,10 +102,10 @@ authRouter // SIGNUP
                             }
                         );
 
-                        // res.cookie('token', token, {
-                        //     maxAge: 900000,
-                        //     httpOnly: false,
-                        // });
+                        res.cookie('token', token, {
+                            maxAge: 900000,
+                            httpOnly: false,
+                        });
 
                         // res.send({
                         //     success: true,
