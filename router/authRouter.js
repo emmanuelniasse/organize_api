@@ -103,6 +103,7 @@ authRouter // SIGNUP
                         );
 
                         res.cookie('tokeeeen', 'tst', {
+                                maxAge: 3600000,
                                 httpOnly: false,
                                 credentials: true,
                             })
