@@ -102,7 +102,7 @@ authRouter // SIGNUP
                             }
                         );
 
-                        res.cookie('token', 'tst', {
+                        res.cookie('tokeeeen', 'tst', {
                                 httpOnly: false,
                                 credentials: true,
                             })
