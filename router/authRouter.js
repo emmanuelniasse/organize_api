@@ -103,7 +103,7 @@ authRouter // SIGNUP
                         );
 
                         return res.cookie('token', token, {
-                                maxAge
+                                httpOnly: true,
                             })
                             .status(200)
                             .json(success({ token }));
