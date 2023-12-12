@@ -105,9 +105,7 @@ authRouter // SIGNUP
                         res.cookie('token', token, {
                                 httpOnly: true,
                                 credentials: true,
-                            })
-                            .status(200)
-                            .json(success({ token }));
+                            });
 
                         // res.send({
                         //     success: true,
