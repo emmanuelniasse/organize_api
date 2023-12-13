@@ -98,7 +98,7 @@ authRouter // SIGNUP
                             { userId: user._id, pseudo: user.pseudo },
                             process.env.JWT_SECRET_KEY,
                             {
-                                expiresIn: '1h', // Durée de validité du token
+                                expiresIn: '1d', // Durée de validité du token
                             }
                         );
 
