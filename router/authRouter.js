@@ -101,7 +101,8 @@ authRouter // SIGNUP
                                 expiresIn: '1d', // Durée de validité du token
                             }
                         );
-
+                        
+                        console.log("TOKEN MEHDI" + token);
                         res.cookie('token', token, {
                                 maxAge: 3600000,
                                 httpOnly: true,
