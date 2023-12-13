@@ -105,17 +105,10 @@ authRouter // SIGNUP
                         res.cookie('token', token, {
                                 maxAge: 3600000,
                                 httpOnly: true,
-                                domain: process.env.APP_URL,
                                 credentials: true,
                             })
                             .status(200)
                             .json(success({ token }));
-
-                        res.send({
-                            success: true,
-                            message: 'Cookies sent',
-                            token: token,
-                        });
                     }
                 );
             }
