@@ -102,7 +102,6 @@ authRouter // SIGNUP
                             }
                         );
                         
-                        console.log("TOKEN MEHDI" + token);
                         res.cookie('token', token, {
                                 maxAge: 3600000,
                                 httpOnly: true,
