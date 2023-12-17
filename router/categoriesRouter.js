@@ -11,7 +11,6 @@ categoriesRouter
         try {
             const categories = await Categories.find();
             res.status(200).json(success(categories));
-            // console.log(categories);
         } catch (err) {
             res.status(500).json(error(err.message));
         }

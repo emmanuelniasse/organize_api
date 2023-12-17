@@ -11,7 +11,6 @@ usersRouter
         try {
             const users = await Users.find();
             res.status(200).json(success(users));
-            console.log(users);
         } catch (err) {
             res.status(500).json(error(err.message));
         }

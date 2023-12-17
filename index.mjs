@@ -19,7 +19,6 @@ import { categoriesRouter } from './router/categoriesRouter.js';
 import { authVerification } from './router/authVerification.js';
 
 app.use(cookieParser());
-console.log("APP URL" + process.env.APP_URL);
 app.use(cors({
     origin: `${process.env.APP_URL}`, 
     allowedHeaders: ['Content-Type', 'Authorization'], 
@@ -33,10 +32,11 @@ app.use(router); // Uniquement "/" car tout est géré dans les routers
 app.use('/', usersRouter);
 app.use('/', authRouter);
 app.use('/', authVerification, expensesRouter);
-app.use('/', categoriesRouter);
+app.use('/', authVerification, categoriesRouter);
 
 app.listen(process.env.PORT, () => {
     console.log('Server listening on port ' + process.env.PORT);
+    console.log("APP URL " + process.env.APP_URL);
 });
 
 // Export Express API

@@ -56,8 +56,7 @@ authRouter // SIGNUP
                 );
             }
         } catch (err) {
-            res.status(500).json(error(err.message));
-            // PIN : Throw new error ?
+            throw new Error(err.message);
         }
     })
 
@@ -104,7 +103,7 @@ authRouter // SIGNUP
                         
                         res.cookie('token', token, {
                                 maxAge: 3600000,
-                                httpOnly: true,
+                                httpOnly: false, // Rend le token accessible au front
                                 credentials: true,
                             })
                             .status(200)
@@ -131,18 +130,5 @@ authRouter // SIGNUP
             }
         }
     })
-
-    // LOGOUT
-    .post('/logout', (req, res) => {
-        res.clearCookie('token');
-        if (!req.cookies.token) {
-            throw new Error('Déconnexion impossible');
-        } else {
-            res.send({
-                success: true,
-                message: 'Déconnexion réussie',
-            });
-        }
-    });
 
 export { authRouter };
