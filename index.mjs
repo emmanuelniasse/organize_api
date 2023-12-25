@@ -36,7 +36,6 @@ app.use('/', authVerification, categoriesRouter);
 
 app.listen(process.env.PORT, () => {
     console.log('Server listening on port ' + process.env.PORT);
-    console.log("APP URL " + process.env.APP_URL);
 });
 
 // Export Express API

@@ -12,10 +12,11 @@ expensesRouter
             const userId = req.user.id;
             const expenses = await Expenses.find({
                 user: userId,
-            }).populate({
-                path: 'category',
-                select: 'name slug',
-            });
+            })
+            // .populate({
+            //     // path: 'category',
+            //     select: 'name slug',
+            // });
             res.status(200).json(success(expenses));
 
         } catch (err) {
@@ -43,8 +44,10 @@ expensesRouter
     .post('/expenses', async (req, res) => {
         try {
             const userId = req.user.id;
-            const { name, sum, description, category, slug } =
+            const { name, sum, description, slug } =
                 req.body;
+            // const { name, sum, description, category, slug } =
+            //     req.body;
             // Vérifie si la dépense est déjà créée
             const thisExpense = await Expenses.findOne({ name });
 
@@ -58,7 +61,7 @@ expensesRouter
                 name,
                 sum,
                 description,
-                category,
+                // category,
                 slug,
             });
 
@@ -66,6 +69,7 @@ expensesRouter
             res.status(200).json(success(savedExpense));
         } catch (err) {
             res.status(500).json(error(err.message));
+            // throw new Error('Erreur lors de la création de la dépense' + err.message)
         }
     })
 
@@ -73,15 +77,17 @@ expensesRouter
     .put('/expenses/:id', async (req, res) => {
         try {
             const userId = req.user.id;
-            const { name, sum, description, category, slug } =
+            const { name, sum, description, slug } =
                 req.body;
+            // const { name, sum, description, category, slug } =
+            //     req.body;
 
             let expenseToUpdate = {
                 user: userId,
                 name,
                 sum,
                 description,
-                category,
+                // category,
                 slug,
             };
 

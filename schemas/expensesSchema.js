@@ -5,7 +5,7 @@ const expensesSchema = new Schema(
     {
         user: { type: Schema.Types.ObjectId, ref: 'Users' },
         name: String,
-        category: { type: Schema.Types.ObjectId, ref: 'Categories' },
+        // category: { type: Schema.Types.ObjectId, ref: 'Categories' },
         sum: Number,
         description: String,
         slug: String,
