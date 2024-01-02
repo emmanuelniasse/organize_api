@@ -13,6 +13,7 @@ expensesRouter
             const expenses = await Expenses.find({
                 user: userId,
             })
+            .sort({ _id: -1 })
             // .populate({
             //     // path: 'category',
             //     select: 'name slug',
@@ -44,6 +45,7 @@ expensesRouter
     .post('/expenses', async (req, res) => {
         try {
             const userId = req.user.id;
+            const did = false;
             const { name, sum, description, slug } =
                 req.body;
             // const { name, sum, description, category, slug } =
@@ -62,6 +64,7 @@ expensesRouter
                 sum,
                 description,
                 // category,
+                did,
                 slug,
             });
 
