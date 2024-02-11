@@ -21,7 +21,8 @@ import { usersRouter } from "./router/usersRouter.js";
 app.use(cookieParser());
 app.use(
     cors({
-        origin: `${process.env.APP_URL}`,
+        origin: "*",
+        // origin: `${process.env.APP_URL}`,
         allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
