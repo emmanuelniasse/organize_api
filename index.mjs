@@ -24,7 +24,7 @@ app.use(
         // origin: `${process.env.APP_URL}`,
         origin: "*",
         allowedHeaders: ["Content-Type", "Authorization"],
-        credentials: true,
+        // credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
     })
 );
