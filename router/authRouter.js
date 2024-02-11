@@ -80,39 +80,40 @@ authRouter // SIGNUP
                 data,
             });
 
-            console.log(userPayloadValid, "USER PAYLOAD VALID");
             if (userPayloadValid) {
                 const user = await Users.findOne({ pseudo });
                 if (!user) {
-                    return res.status(401).send("Utilisateur inconnu");
+                    throw new Error("Utilisateur inconnu");
+                }
+                const passwordMatch = await bcrypt.compare(
+                    password,
+                    user.password
+                );
+
+                if (!passwordMatch) {
+                    throw new Error("Mot de passe incorrect");
                 }
 
-                bcrypt.compare(password, user.password, function (err, result) {
-                    if (err || !result) {
-                        return res.status(401).send("Mot de passe incorrect");
+                const token = jwt.sign(
+                    { userId: user._id, pseudo: user.pseudo },
+                    process.env.JWT_SECRET_KEY,
+                    {
+                        expiresIn: "1d", // Durée de validité du token
                     }
-                    const token = jwt.sign(
-                        { userId: user._id, pseudo: user.pseudo },
-                        process.env.JWT_SECRET_KEY,
-                        {
-                            expiresIn: "1d", // Durée de validité du token
-                        }
-                    );
+                );
 
-                    res.cookie("token", token, {
-                        maxAge: 3600000,
-                        httpOnly: false, // Rend le token accessible au front
-                        credentials: true,
-                    })
-                        .status(200)
-                        .json(success({ token }));
-                });
+                res.cookie("token", token, {
+                    maxAge: 3600000,
+                    httpOnly: false, // Rend le token accessible au front
+                    credentials: true,
+                })
+                    .status(200)
+                    .json(success({ token }));
             } else {
-                return res.status(401).send("Requête invalide");
+                throw new Error("Informations invalides");
             }
         } catch (err) {
-            // console.log(err);
-            return;
+            res.status(500).json(err.message);
         }
     });
 
