@@ -105,7 +105,7 @@ authRouter // SIGNUP
                 res.cookie("token", token, {
                     maxAge: 3600000,
                     httpOnly: false, // Rend le token accessible au front
-                    credentials: true,
+                    // credentials: true,
                 })
                     .status(200)
                     .json(success({ token }));
