@@ -1,4 +1,4 @@
-import vine from "@vinejs/vine";
+import vine, { SimpleMessagesProvider } from "@vinejs/vine";
 import bcrypt from "bcrypt";
 import { Router } from "express";
 import jwt from "jsonwebtoken";
@@ -7,6 +7,14 @@ import { success } from "../functions/functions.js";
 import Users from "../schemas/usersSchema.js";
 
 const authRouter = Router();
+
+const messages = {
+    string: "Le {{ field }} doit être une chaîne de caractères",
+    minLength: "Le {{ field }} doit contenir {{ min }} caractères au minimum",
+    maxLength: "Le {{ field }} doit contenir {{ max }} caractères au maximum",
+};
+
+vine.messagesProvider = new SimpleMessagesProvider(messages);
 
 authRouter // SIGNUP
     .post("/signup", async (req, res) => {
@@ -51,12 +59,17 @@ authRouter // SIGNUP
                 );
             }
         } catch (err) {
+            console.log(err);
+            let errorMsg = "Erreur lors de l'inscription";
             let fieldMessages = err.messages;
-            if (fieldMessages) {
+
+            fieldMessages &&
                 fieldMessages.forEach((msg) => {
-                    console.log(msg.message + " MESSAGE");
+                    // TODO : refacto
+                    msg.message = !"" && (errorMsg = msg.message);
                 });
-            }
+            console.log(errorMsg);
+            res.status(500).json(errorMsg);
         }
     })
 
